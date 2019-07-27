@@ -1,0 +1,41 @@
+﻿@using Students.Models
+@model Student
+@{
+    ViewBag.Title = "Add";
+}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Edit a student</title>
+</head>
+<body>
+    <div class="form">
+        <h2>Edit a student</h2>
+        @using (Html.BeginForm("AddEditDelete", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="hidden" value="@ViewBag.id" name="Id" /><br />
+            @Html.LabelFor(m => m.Name, "Enter name: ", new { @class = "label" })<br />
+            @Html.TextBoxFor(m => m.Name)<br />
+            @Html.LabelFor(m => m.Surname, "Enter surname: ", new { @class = "label" })<br />
+            @Html.TextBoxFor(m => m.Surname)<br />
+            @Html.LabelFor(m => m.AvgMark, "Enter avgMark: ", new { @class = "label" })<br />
+            @Html.TextBoxFor(m => m.AvgMark)<br />
+            @Html.LabelFor(m => m.CourseNumb, "Enter courseNumb: ", new { @class = "label" })<br />
+            @Html.TextBoxFor(m => m.CourseNumb)<br />
+            <p class="label">Select student photo: </p><br />
+            <input type="file" name="uploadImage" class="uploadImage" /><br />
+            @Html.LabelFor(m => m.Email, "Enter email: ", new { @class = "label" })<br />
+            @Html.TextBoxFor(m => m.Email)<br />
+            foreach (string item in ViewBag.Courses)
+            {
+                <input type="checkbox" id=@item name="CoursesList" value=@item />
+                <label>@item</label> <br />
+            }
+            <div><button value="Edit" name="buttonValue" class="button">Edit</button></div><br/><br/><br/>
+            <div><button value="Exit" name="buttonValue" class="button">Exit</button></div>
+        }
+    </div>
+</body>
+</html>
+

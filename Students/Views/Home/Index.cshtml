@@ -1,0 +1,54 @@
+﻿@using Students.Models
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Students</title>
+</head>
+<body>
+    <div>
+        <h2>Information about all students</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>AvgMark</th>
+                <th>CourseNumb</th>
+                <th>Image</th>
+                <th>Email</th>
+                <th>Courses</th>
+                <th>Button</th>
+            </tr>
+            @foreach (Student stud in ViewBag.Students)
+            {
+                <tr>
+                    <td>@stud.Id</td>
+                    <td>@stud.Name</td>
+                    <td>@stud.Surname</td>
+                    <td>@stud.AvgMark</td>
+                    <td>@stud.CourseNumb</td>
+                    <td>@Html.Raw($"<img style='width:90pt;' src=\"data:image/{(stud.Extension == "jpg" ? "jpeg" : stud.Extension)};base64," + Convert.ToBase64String(stud.Image) + "\" />")</td>
+                    <td>@stud.Email</td>
+                    <td>@stud.Courses</td>
+                    <td><a href="/Home/AddEditDelete?method=Edit&id=@stud.Id">Edit</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="form">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            @Html.Label("Enter login: ", new { @class = "label" })<br />
+            <input type="text" name="login" class="textBox" /><br/><br/><br/>
+            @Html.Label("Enter password: ", new { @class = "label" })<br />
+            <input name="password" type="password" class="textBox" /><br/><br/><br/>
+            <div><button name="buttVal" value="Add" class="button">Add a new student or course(s)</button></div>
+            <div><button name="buttVal" value="Delete" class="button">Delete a student or course(s)</button></div>
+        }
+    </div>
+</body>
+</html>

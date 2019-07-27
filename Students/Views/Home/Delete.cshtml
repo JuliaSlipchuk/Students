@@ -1,0 +1,40 @@
+﻿@model Students.Models.Student
+@{
+    ViewBag.Title = "Delete";
+}>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Delete a student or course</title>
+</head>
+<body>
+    <div>
+        <h2>Delete a student or course</h2>
+        <div>
+            <div class="form">
+                <h3>Delete a student</h3>
+                @using (Html.BeginForm("AddEditDelete", "Home", FormMethod.Post))
+                {
+                    @Html.LabelFor(m => m.Id, "Enter an id of the student you want to delete")<br />
+                    @Html.TextBoxFor(m => m.Id)<br />
+                    <button value="Delete" name="buttonValue" class="button">DeleteStudent</button><br/>
+                }
+            </div>
+            <div class="form">
+                <h3>Delete courses</h3>
+                @using (Html.BeginForm("AddRemoveCourse", "Home", FormMethod.Post))
+                {
+                    foreach (string item in ViewBag.Courses)
+                    {
+                        <input type="checkbox" id=@item name="CoursesList" value=@item />
+                        <label>@item</label> <br />
+                    }
+                    <div><button value="Delete" name="what" class="button">DeleteCourse(s)</button></div><br/><br/><br/>
+                    <div><button value="Exit" name="what" class="button">Exit</button></div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
